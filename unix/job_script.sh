@@ -6,5 +6,5 @@
 #SBATCH -p small
 #SBATCH -t 5
 #SBATCH --reservation=summer_school
-aprun prog
+aprun -n 24 ./prog
 
