@@ -53,9 +53,10 @@ contains
     ! TODO: implement the file reading
 	open(10, file=filename)
     ! Read the header
-	read(10, fmt='(2x, i3, 1x ,i3)') nx, ny
+	read(10, *) dummy, nx, ny
+	! read(10, fmt='(2x, i3, 1x ,i3)') nx, ny
 	!read(line(2:),*) nxy ---- parempi! , mutta pitää lukea character vektoriin. 
-	! declare, read line, ja sitten tämä
+	! declare, read line, ja sitten tämäcd
 	
     ! The arrays for temperature field contain also a halo region
 	allocate(field0%data(0:nx+1, 0:ny+1))
