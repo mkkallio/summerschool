@@ -5,31 +5,26 @@ contains
   ! Reads the temperature distribution from an input file
   subroutine read_field(field, filename)
     implicit none
-
+	
+	integer :: nxy(2), i
     real, dimension(:,:), allocatable, intent(out) :: field
     character(len=*), intent(in) :: filename
 
     ! TODO: implement function that will:
     ! open the file
+	open(10, file='bottle.dat')
     ! read the first header line to get nx and ny
+	read(10, fmt='(2x, i3, 1x ,i3)') nxy
+	!read(line(2:),*) nxy ---- parempi!
+	write(*,*) nxy
     ! allocate matrix called field
+	allocate(field( nxy(1),nxy(2) ))
     ! read rest of the file into field
+	do i = 1, nxy(1)
+		read(10, *) field(i,:)
+	end do
     ! close the file
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	close(10)
 
 
   end subroutine read_field

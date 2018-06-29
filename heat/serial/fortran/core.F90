@@ -22,6 +22,17 @@ contains
     ny = curr%ny
 
     ! TODO: implement the heat equation update
+	
+	do i = 1, nx
+		do j = 1, ny
+			curr%data(i,j) = prev%data(i,j) + dt*a* &
+						( (prev%data(i-1,j) - 2*prev%data(i,j) + prev%data(i+1,j)) / prev%dx**2 + &
+						(prev%data(i,j-1) - 2*prev%data(i,j) + prev%data(i,j+1)) / prev%dy**2 )
+		end do
+	end do
+	
+	!prev%data = curr%data
+	
   end subroutine evolve
 
 end module core

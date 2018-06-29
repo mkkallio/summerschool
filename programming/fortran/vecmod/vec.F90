@@ -10,11 +10,11 @@ program vectors
      write(*,'(A)', advance='no') ' v2 ='
      read(*,*) v2%x, v2%y, v2%z
 
-     write(*,'(2(A,G10.4))') ' |v1|=', abs(v1), ' |v2|=', abs(v2)
+     !write(*,'(2(A,G10.4))') ' |v1|=', abs(v1), ' |v2|=', abs(v2)
      write(*,'(A,3G10.4)') ' v1 + v2 =', v1 + v2
-     write(*,'(A,3G10.4)') ' v1 - v2 =', v1 - v2
-     write(*,'(A,3G10.4)') ' v1 . v2 =', v1 * v2
-     write(*,'(A,3G10.4)') ' v1 x v2 =', v1 .x. v2
+     !write(*,'(A,3G10.4)') ' v1 - v2 =', v1 - v2
+     !write(*,'(A,3G10.4)') ' v1 . v2 =', v1 * v2
+     !write(*,'(A,3G10.4)') ' v1 x v2 =', v1 .x. v2
   end do parser
 
 end program vectors

@@ -51,17 +51,24 @@ contains
     character(len=2) :: dummy
 
     ! TODO: implement the file reading
+	open(10, file=filename)
     ! Read the header
-
-
-
+	read(10, fmt='(2x, i3, 1x ,i3)') nx, ny
+	!read(line(2:),*) nxy ---- parempi! , mutta pitää lukea character vektoriin. 
+	! declare, read line, ja sitten tämä
+	
     ! The arrays for temperature field contain also a halo region
-
+	allocate(field0%data(0:nx+1, 0:ny+1))
 
     ! Read the data
-
-
-
+	do i = 1, nx
+		read(10, *) field0%data(i,1:ny)
+	end do
+	
+	field0%nx = nx
+	field0%ny = ny
+	field0%dx = DX
+	field0%dy = DY
 
     ! Set the boundary values
     field0%data(1:nx,   0     ) = field0%data(1:nx, 1     )

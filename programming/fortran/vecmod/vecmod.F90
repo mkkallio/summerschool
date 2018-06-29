@@ -6,7 +6,9 @@ module vector_algebra
   end type vector_t
 
   ! TODO: overload operators needed by the parser
-
+	interface operator(+)
+		module procedure vector_sum
+	end interface
   ! ...
 
 contains
@@ -14,6 +16,13 @@ contains
 
   function vector_sum(v1, v2) result(v3)
     !    ...
+	type(vector_t), intent(in) :: v1, v2 
+	type(vector_t) :: v3
+	
+	v3%x = v1%x + v2%x
+	v3%y = v1%y + v2%y
+	v3%z = v1%z + v2%z
+	
   end function vector_sum
 
   ! ...

@@ -2,7 +2,7 @@ ifeq ($(COMP),)
 COMP=gnu
 endif
 
-COMMONDIR=../../../../heat/common
+COMMONDIR=../../../heat/common
 LIBPNGDIR=/appl/opt/libpng
 
 ifeq ($(COMP),cray)
