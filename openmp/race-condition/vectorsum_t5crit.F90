@@ -19,7 +19,7 @@ program vectorsum
   sum = 0
   ! TODO: Parallelize the computation
   !$omp parallel private(i, t_sum)
-  
+ 	t_sum = 0.0 
   	!$omp do 
 		do i = 1, nx
      			t_sum = t_sum + vecA(i)

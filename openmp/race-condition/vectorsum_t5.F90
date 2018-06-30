@@ -19,9 +19,11 @@ program vectorsum
   sum = 0
   ! TODO: Parallelize the computation
   !$omp parallel private(i) reduction(+:sum)
-  do i = 1, nx
-     sum = sum + vecA(i)
-  end do
+  !$omp do
+	do i = 1, nx
+     		sum = sum + vecA(i)
+  	end do
+  !$omp end do
   !$omp end parallel
 
   write(*,*) 'Sum: ', sum
