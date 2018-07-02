@@ -14,7 +14,20 @@ contains
     type(field), intent(inout) :: field0
     type(parallel_data), intent(inout) :: parallel
     integer :: ierr
+    integer :: robj(2), sobj(2)
+
     ! TODO
+    !call MPI_Send_init(field0%data(:,0), field0%ny, MPI_DOUBLE_PRECISION, parallel%nleft, 0, MPI_COMM_WORLD, sobj, ierr)
+    !call MPI_Recv_init(field0%data(:,(field0%ny+1)), field0%ny, MPI_DOUBLE_PRECISION, parallel%nright, 0, MPI_COMM_WORLD, robj, ierr)
+    
+    ! send to left, receive from right
+    call MPI_Isend(field0%(:,0), field%ny, MPI_DOUBLE_PRECISION, parallel%nleft, 0, MPI_COMM_WORLD, sobj(1), ierr)
+    call MPI_IRecv(field0%data(:,field0%ny), field0%ny, MPI_DOUBLE_PRECISION, parallel%nright, 0, MPI_COMM_WORLD, robj(1), ierr)
+
+    ! send to right, receive from left    
+    call MPI_Isend(field0%(:,field0%ny), field%ny, MPI_DOUBLE_PRECISION, parallel%nright, 0, MPI_COMM_WORLD, sobj(2), ierr)
+    call MPI_IRecv(field0%data(:,0), field0%ny, MPI_DOUBLE_PRECISION, parallel%nright, 0, MPI_COMM_WORLD, robj(2), ierr)
+
   end subroutine exchange_init
 
   ! Compute one time step of temperature evolution

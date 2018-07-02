@@ -26,6 +26,7 @@ program basic
      destination = myid + 1
   else
      destination = MPI_PROC_NULL
+  
   end if
   if (myid > 0) then
      source = myid - 1
@@ -39,6 +40,9 @@ program basic
 
   ! TODO: Implement the message passing using non-blocking
   !       sends and receives
+  call MPI_Irecv(receiveBuffer, size, MPI_INTEGER, source, 0, MPI_COMM_WORLD, requests(2), rc)  
+  
+  call MPI_Isend(message, size, MPI_INTEGER, destination, 0, MPI_COMM_WORLD, requests(1), rc)
 
   write(*,'(A10,I3,A20,I8,A,I3,A,I3)') 'Sender: ', myid, &
        ' Sent elements: ', size, &
@@ -46,7 +50,7 @@ program basic
 
   ! TODO: Add here a synchronization call so that you can be sure
   !       that the message has been received
-
+  call MPI_Wait(requests(2), status, rc)
   call MPI_GET_COUNT(status(:,1), MPI_INTEGER, count, rc)
   write(*,'(A10,I3,A20,I8,A,I3,A,I3)') 'Receiver: ', myid, &
        'received elements: ', count, &

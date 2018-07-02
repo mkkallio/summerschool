@@ -7,7 +7,7 @@ program heat_solve
   use setup
   use utilities
   use mpi
-
+  use omp_lib
   implicit none
 
   real(dp), parameter :: a = 0.5 ! Diffusion constant

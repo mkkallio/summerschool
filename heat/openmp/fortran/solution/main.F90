@@ -6,7 +6,8 @@ program heat_solve
   use io
   use setup
   use utilities
-
+  use omp_lib
+  use mpi
   implicit none
 
   real(dp), parameter :: a = 0.5 ! Diffusion constant
@@ -16,9 +17,12 @@ program heat_solve
   integer :: nsteps       ! Number of time steps
   integer, parameter :: image_interval = 10 ! Image output interval
 
+  integer :: ierr
+
   integer :: iter
 
   real :: start, stop ! Timers
+  call MPI_INIT(ierr)
 
   !$OMP PARALLEL PRIVATE(iter)
   call initialize(current, previous, nsteps)
@@ -54,5 +58,5 @@ program heat_solve
   write(*,'(A,G0)') 'Reference value at 5,5: ', previous % data(5,5)
 
   call finalize(current, previous)
-
+  call MPI_Finalize(ierr)
 end program heat_solve

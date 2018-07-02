@@ -27,10 +27,10 @@ program coll_exer
 
   ! TODO: use a single collective communication call (and maybe prepare
   !       some parameters for the call)
-
+  call MPI_Bcast(sendbuf, 8, MPI_INTEGER, 0, rc)
   ! Print data that was received
   ! TODO: add correct buffer
-  call print_buffers(...)
+  call print_buffers(sendbuf)
 
   call mpi_finalize(ierr)
 

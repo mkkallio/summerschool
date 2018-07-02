@@ -7,6 +7,7 @@ program coll_exer
   integer :: ntasks, rank, ierr, i, color, sub_comm
   integer, dimension(2*n_mpi_tasks) :: sendbuf, recvbuf
   integer, dimension(2*n_mpi_tasks**2) :: printbuf
+  integer :: requests(2), status(MPI_STATUS_SIZE)
 
   call mpi_init(ierr)
   call mpi_comm_size(MPI_COMM_WORLD, ntasks, ierr)
@@ -28,11 +29,13 @@ program coll_exer
   ! TODO: use a single *non-blocking*
   ! collective communication call (and maybe prepare
   ! some parameters for the call)
+    call MPI_Ibcast(sendbuf, 8, MPI_INTEGER, 0, MPI_COMM_WORLD, requests(1), ierr)
+    print *, 'I already went ahead!'
   ! TODO: remember to complete the collective
-
+  call MPI_Wait(requests(1), status, ierr)
   ! Print data that was received
   ! TODO: add correct buffer
-  call print_buffers(...)
+  call print_buffers(sendbuf)
 
   call mpi_finalize(ierr)
 
