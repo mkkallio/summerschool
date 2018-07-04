@@ -39,7 +39,24 @@ contains
 
     ! TODO: Implement a function that writers the whole array of elements
     !       to a file so that single process is responsible for the file io
+    ! call mpi_file_open(MPI_COMM_WORLD, 'paroo_1a.dat', mpi_mode_create + mpi_mode_wronly, )
+    
+    
+    call mpi_gather(localvector, localsize, MPI_INT, fullvector, localsize, MPI_INT, 0, MPI_COMM_WORLD, rc)
+
+    if(my_id == 0) then
+      open(10, file='foo.dat')
+      write(10,*) fullvector
+      close(10) 
+    end if   
 
   end subroutine single_writer
+
+  subroutine reader()
+    implicit none
+    
+    
+
+  end subroutine reader
 
 end program pario
